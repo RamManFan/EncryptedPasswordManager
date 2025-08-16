@@ -103,6 +103,18 @@ target_link_libraries(epm_core PUBLIC
 add_executable(epm src/main.cpp)
 target_link_libraries(epm PRIVATE epm_core)
 
+if (WIN32)
+  add_executable(epm_gui WIN32
+    gui/wintray_main.cpp
+    gui/resource.rc
+  )
+  target_include_directories(epm_gui PRIVATE
+    ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/gui
+  )
+  target_link_libraries(epm_gui PRIVATE epm_core comctl32)
+endif()
+
 # ---- Tests
 find_package(Catch2 3 QUIET)
 if(NOT Catch2_FOUND)
