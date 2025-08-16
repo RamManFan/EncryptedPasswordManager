@@ -1,128 +1,106 @@
+# 🔐 Encrypted Password Manager (EPM)
+
+```
 ███████╗██████╗ ███╗   ███╗
 ██╔════╝██╔══██╗████╗ ████║
 █████╗  ██████╔╝██╔████╔██║
 ██╔══╝  ██╔═══╝ ██║╚██╔╝██║
 ███████╗██║     ██║ ╚═╝ ██║
 ╚══════╝╚═╝     ╚═╝     ╚═╝
-Encrypted Password Manager
-A local-only password manager I built in C++ to learn about encryption, databases, and secure storage.
-It uses Argon2id for hashing the master password and AES-256-GCM for encrypting credentials, all stored in SQLite.
+```
 
-css
-Copy code
-[ FEATURES ]
-Set a master password and log in
+A simple password manager I made as a learning project!  
+Stores your passwords **encrypted** using AES-256, with a master password to keep everything safe.  
+I’m still learning C++, so this project is my way of getting better and building something useful.
 
-Save credentials for different services
+---
 
-Search, view, update, and delete credentials
+## 🚀 Features
+- **Master password authentication** 🔑  
+- **AES-256 encryption** for stored credentials  
+- **Search by service name**  
+- **Add, update, delete** credentials  
+- **SQLite database** storage  
 
-Generate random secure passwords
+---
 
-Change your master password (re-encrypts everything)
+## 📦 How to Install
 
-css
-Copy code
-[ REQUIREMENTS ]
-Windows (MSYS2 / UCRT64)
-Install:
+### 1️⃣ Clone the repo
+```bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+cd YOUR_REPO
+```
 
-bash
-Copy code
-pacman -S --needed \
-  mingw-w64-ucrt-x86_64-toolchain \
-  mingw-w64-ucrt-x86_64-cmake \
-  mingw-w64-ucrt-x86_64-ninja \
-  mingw-w64-ucrt-x86_64-openssl \
-  mingw-w64-ucrt-x86_64-sqlite3 \
-  mingw-w64-ucrt-x86_64-argon2 \
-  git
-Linux/macOS
-Use your package manager to get:
+### 2️⃣ Install dependencies
+Make sure you have:
+- **C++ compiler** (GCC, Clang, or MSVC)  
+- **CMake** (build system)  
+- **SQLite3** library  
 
-scss
-Copy code
-cmake, ninja, openssl (dev), sqlite3 (dev), argon2 (dev), git
-css
-Copy code
-[ BUILDING ]
-bash
-Copy code
-rm -rf build
-cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=/ucrt64
-cmake --build build
-Outputs:
+On Windows (MSYS2):
+```bash
+pacman -S mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-cmake mingw-w64-ucrt-x86_64-sqlite3
+```
 
-css
-Copy code
-epm.exe   → Main program
-tests.exe → Optional tests
-css
-Copy code
-[ RUNNING ]
-bash
-Copy code
-./build/epm.exe
-First time:
+On Linux (Debian/Ubuntu):
+```bash
+sudo apt install g++ cmake libsqlite3-dev
+```
 
-It will ask you to create a master password.
+---
 
-Use it to unlock your stored credentials later.
+### 3️⃣ Build the project
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
 
-Menu:
+---
 
-pgsql
-Copy code
-1) Add credential
-2) Search by service
-3) View (decrypt) by id
-4) Update by id
-5) Delete by id
-6) Generate password
-7) List all credentials
-8) Change master password
-q) Quit
-vbnet
-Copy code
-[ WHERE DATA IS STORED ]
-All secrets are in:
+## 🛠 How to Use
 
-bash
-Copy code
+### 1. Start the program
+```bash
+./epm
+```
+
+### 2. Set a master password  
+First time running? You’ll be asked to create one.
+
+### 3. Commands
+- **Add** a credential → enter service, username, password  
+- **Search** credentials by service name  
+- **Update** existing credentials  
+- **Delete** credentials you don’t need anymore  
+
+### 4. Database file
+The encrypted credentials are stored in:
+```
 data/epm.sqlite
-This file is ignored by Git for safety.
+```
 
-css
-Copy code
-[ RUNNING TESTS ]
-bash
-Copy code
-./build/tests.exe
-css
-Copy code
-[ .GITIGNORE SUGGESTIONS ]
-swift
-Copy code
-/build/
-/data/
-/cmake-build-*/
-*.exe
-*.dll
-*.o
-*.obj
-*.a
-*.lib
-*.pdb
-*.ninja
-CMakeFiles/
-CMakeCache.txt
-css
-Copy code
-[ NOTES ]
-This is a learning project, not a production-grade password manager.
+---
 
-Built to explore C++, encryption, and SQLite.
+## 🧹 Resetting the Database
+If you want to start fresh:
+```bash
+rm data/epm.sqlite
+```
 
-Runs locally — no internet or cloud storage.
+---
 
-Keep your master password safe. Lose it = lose access.
+## 📝 Notes
+This is my learning project, so it’s not meant for serious password storage yet.  
+I made it to get better at:
+- C++ classes  
+- File handling  
+- SQLite database usage  
+- Encryption techniques  
+
+---
+
+## 📄 License
+MIT — Feel free to use this for learning and experimenting.
