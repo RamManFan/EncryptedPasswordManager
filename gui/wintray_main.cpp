@@ -23,6 +23,7 @@ NOTIFYICONDATA g_nid{};
 bool g_loginOpen = false;
 std::unique_ptr<DatabaseManager> g_db;
 std::unique_ptr<EncryptionManager> g_enc;
+HBRUSH g_bgBrush = nullptr;
 
 // Forward declarations
 LRESULT CALLBACK MainWndProc(HWND, UINT, WPARAM, LPARAM);
@@ -79,7 +80,7 @@ bool ShowPasswordDialog(HWND owner, std::string& outPw) {
     wc.lpfnWndProc = LoginWndProc;
     wc.hInstance = g_hInst;
     wc.lpszClassName = L"EpmLoginClass";
-    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    wc.hbrBackground = g_bgBrush;
 
     wc.hIcon = LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY));
     RegisterClass(&wc);
@@ -269,7 +270,7 @@ bool ShowInputDialog(HWND owner, const wchar_t* title,
     wc.lpfnWndProc = InputWndProc;
     wc.hInstance = g_hInst;
     wc.lpszClassName = L"EpmInputClass";
-    wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    wc.hbrBackground = g_bgBrush;
 
     wc.hIcon = LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY));
     RegisterClass(&wc);
@@ -566,7 +567,7 @@ void ShowMainMenu() {
         wc.lpfnWndProc = MenuWndProc;
         wc.hInstance = g_hInst;
         wc.lpszClassName = L"EpmMenuClass";
-        wc.hbrBackground = (HBRUSH)(COLOR_BTNFACE + 1);
+        wc.hbrBackground = g_bgBrush;
         wc.hIcon = LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY));
         RegisterClass(&wc);
 
@@ -687,6 +688,7 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) 
 // ---- Entry point ---------------------------------------------------------
 int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int) {
     g_hInst = hInstance;
+    g_bgBrush = CreateSolidBrush(RGB(0, 0, 128));
 
     WNDCLASS wc{};
     wc.lpfnWndProc = MainWndProc;
@@ -719,6 +721,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int) {
 
     Shell_NotifyIcon(NIM_DELETE, &g_nid);
     if (g_nid.hIcon) DestroyIcon(g_nid.hIcon);
+    if (g_bgBrush) DeleteObject(g_bgBrush);
     return 0;
 }
 
