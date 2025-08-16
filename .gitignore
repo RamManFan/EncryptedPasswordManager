@@ -1,0 +1,23 @@
+# Build output
+/build/
+/CMakeFiles/
+/compile_commands.json
+CMakeCache.txt
+cmake_install.cmake
+build.ninja
+.ninja_deps
+.ninja_log
+libepm_core.a
+epm.exe
+tests.exe
+
+# Generated database/data
+/data/epm.sqlite
+
+# IDE settings
+.vscode/
+
+# Test database files
+tmp_test_kdf.sqlite
+tmp_test_master.sqlite
+
