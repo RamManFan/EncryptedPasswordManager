@@ -80,6 +80,7 @@ bool ShowPasswordDialog(HWND owner, std::string& outPw) {
     wc.hInstance = g_hInst;
     wc.lpszClassName = L"EpmLoginClass";
     wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+
     wc.hIcon = LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY));
     RegisterClass(&wc);
 
@@ -90,14 +91,17 @@ bool ShowPasswordDialog(HWND owner, std::string& outPw) {
     SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY)));
     SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY)));
 
+
     CreateWindow(L"STATIC", L"Master password:", WS_CHILD | WS_VISIBLE,
         10, 10, 230, 20, hwnd, nullptr, g_hInst, nullptr);
     HWND hEdit = CreateWindowEx(0, L"EDIT", L"", WS_CHILD | WS_VISIBLE | ES_PASSWORD | WS_TABSTOP,
+
         10, 40, 230, 20, hwnd, (HMENU)IDC_EDIT_PASSWORD, g_hInst, nullptr);
     CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP,
         50, 80, 70, 24, hwnd, (HMENU)IDC_BTN_OK, g_hInst, nullptr);
     CreateWindow(L"BUTTON", L"Cancel", WS_CHILD | WS_VISIBLE | WS_TABSTOP,
         130, 80, 70, 24, hwnd, (HMENU)IDC_BTN_CANCEL, g_hInst, nullptr);
+
     SetFocus(hEdit);
 
     RECT rc; GetWindowRect(hwnd, &rc);
@@ -197,9 +201,11 @@ static const std::vector<Field>* g_inputFields = nullptr;
 LRESULT CALLBACK InputWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch (msg) {
     case WM_CREATE: {
+
         const int step = 60;
         for (size_t i = 0; i < g_inputFields->size(); ++i) {
             int y = 10 + static_cast<int>(i) * step;
+
             const Field& f = (*g_inputFields)[i];
             CreateWindow(L"STATIC", f.label, WS_CHILD | WS_VISIBLE,
                 10, y, 260, 20, hwnd, nullptr, g_hInst, nullptr);
@@ -210,6 +216,7 @@ LRESULT CALLBACK InputWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             g_inputEdits.push_back(edit);
         }
         int y = 10 + static_cast<int>(g_inputFields->size()) * step;
+
         CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP,
             60, y, 80, 24, hwnd, (HMENU)IDC_BTN_OK, g_hInst, nullptr);
         CreateWindow(L"BUTTON", L"Cancel", WS_CHILD | WS_VISIBLE | WS_TABSTOP,
@@ -264,17 +271,21 @@ bool ShowInputDialog(HWND owner, const wchar_t* title,
     wc.hInstance = g_hInst;
     wc.lpszClassName = L"EpmInputClass";
     wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+
     wc.hIcon = LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY));
     RegisterClass(&wc);
 
     const int step = 60;
     int height = 70 + static_cast<int>(fields.size()) * step;
+
     HWND hwnd = CreateWindowEx(WS_EX_DLGMODALFRAME, wc.lpszClassName, title,
         WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, 300, height,
         owner, nullptr, g_hInst, nullptr);
 
+
     SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY)));
     SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY)));
+
 
     RECT rc; GetWindowRect(hwnd, &rc);
     int w = rc.right - rc.left, h = rc.bottom - rc.top;
@@ -557,16 +568,19 @@ void ShowMainMenu() {
         wc.hInstance = g_hInst;
         wc.lpszClassName = L"EpmMenuClass";
         wc.hbrBackground = (HBRUSH)(COLOR_BTNFACE + 1);
+
         wc.hIcon = LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY));
-        RegisterClass(&wc);
+
 
         g_menuWnd = CreateWindow(wc.lpszClassName, L"EPM Menu",
             WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
+
             CW_USEDEFAULT, CW_USEDEFAULT, 300, 350,
             g_mainWnd, nullptr, g_hInst, nullptr);
 
         SendMessage(g_menuWnd, WM_SETICON, ICON_BIG, (LPARAM)LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY)));
         SendMessage(g_menuWnd, WM_SETICON, ICON_SMALL, (LPARAM)LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY)));
+
 
         const wchar_t* labels[8] = {
             L"Add credential",
@@ -585,6 +599,7 @@ void ShowMainMenu() {
         for (int i = 0; i < 8; ++i) {
             CreateWindow(L"BUTTON", labels[i], WS_CHILD | WS_VISIBLE,
                 10, 10 + i * 40, 260, 24, g_menuWnd, (HMENU)ids[i], g_hInst, nullptr);
+
         }
     }
     ShowWindow(g_menuWnd, SW_SHOW);
@@ -673,7 +688,9 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int) {
     wc.lpfnWndProc = MainWndProc;
     wc.hInstance = hInstance;
     wc.lpszClassName = L"EpmTrayClass";
+
     wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_TRAY));
+
     RegisterClass(&wc);
 
     g_mainWnd = CreateWindow(wc.lpszClassName, L"EPM", 0,
@@ -684,7 +701,9 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int) {
     g_nid.uID = 1;
     g_nid.uFlags = NIF_MESSAGE | NIF_ICON | NIF_TIP;
     g_nid.uCallbackMessage = WMAPP_TRAY;
+
     g_nid.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_TRAY));
+
     lstrcpyn(g_nid.szTip, L"EPM (click to unlock)", ARRAYSIZE(g_nid.szTip));
     Shell_NotifyIcon(NIM_ADD, &g_nid);
 
@@ -698,3 +717,4 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int) {
     if (g_nid.hIcon) DestroyIcon(g_nid.hIcon);
     return 0;
 }
+

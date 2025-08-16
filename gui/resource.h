@@ -1,7 +1,9 @@
 #pragma once
 #include <windows.h>
 
+
 #define IDI_TRAY        101
+
 #define WMAPP_TRAY      (WM_APP + 1)
 
 #define IDM_TRAY_SHOW   40001
@@ -24,3 +26,4 @@
 #define IDC_EDIT_CUR_MASTER     50020
 #define IDC_EDIT_NEW_MASTER     50021
 #define IDC_EDIT_CONFIRM_MASTER 50022
+
