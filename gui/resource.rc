@@ -1,0 +1,3 @@
+#include "resource.h"
+
+/* No embedded icon to avoid binary assets; using standard IDI_APPLICATION icon. */
