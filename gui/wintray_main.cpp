@@ -83,17 +83,21 @@ bool ShowPasswordDialog(HWND owner, std::string& outPw) {
     RegisterClass(&wc);
 
     HWND hwnd = CreateWindowEx(WS_EX_DLGMODALFRAME, wc.lpszClassName, L"Enter Master Password",
+
         WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, 260, 150,
+
         owner, nullptr, g_hInst, nullptr);
 
     CreateWindow(L"STATIC", L"Master password:", WS_CHILD | WS_VISIBLE,
         10, 10, 230, 20, hwnd, nullptr, g_hInst, nullptr);
     HWND hEdit = CreateWindowEx(0, L"EDIT", L"", WS_CHILD | WS_VISIBLE | ES_PASSWORD | WS_TABSTOP,
+
         10, 40, 230, 20, hwnd, (HMENU)IDC_EDIT_PASSWORD, g_hInst, nullptr);
     CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP,
         50, 80, 70, 24, hwnd, (HMENU)IDC_BTN_OK, g_hInst, nullptr);
     CreateWindow(L"BUTTON", L"Cancel", WS_CHILD | WS_VISIBLE | WS_TABSTOP,
         130, 80, 70, 24, hwnd, (HMENU)IDC_BTN_CANCEL, g_hInst, nullptr);
+
     SetFocus(hEdit);
 
     RECT rc; GetWindowRect(hwnd, &rc);
@@ -193,9 +197,11 @@ static const std::vector<Field>* g_inputFields = nullptr;
 LRESULT CALLBACK InputWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch (msg) {
     case WM_CREATE: {
+
         const int step = 60;
         for (size_t i = 0; i < g_inputFields->size(); ++i) {
             int y = 10 + static_cast<int>(i) * step;
+
             const Field& f = (*g_inputFields)[i];
             CreateWindow(L"STATIC", f.label, WS_CHILD | WS_VISIBLE,
                 10, y, 260, 20, hwnd, nullptr, g_hInst, nullptr);
@@ -206,6 +212,7 @@ LRESULT CALLBACK InputWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             g_inputEdits.push_back(edit);
         }
         int y = 10 + static_cast<int>(g_inputFields->size()) * step;
+
         CreateWindow(L"BUTTON", L"OK", WS_CHILD | WS_VISIBLE | WS_TABSTOP,
             60, y, 80, 24, hwnd, (HMENU)IDC_BTN_OK, g_hInst, nullptr);
         CreateWindow(L"BUTTON", L"Cancel", WS_CHILD | WS_VISIBLE | WS_TABSTOP,
@@ -262,8 +269,10 @@ bool ShowInputDialog(HWND owner, const wchar_t* title,
     wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
     RegisterClass(&wc);
 
+
     const int step = 60;
     int height = 70 + static_cast<int>(fields.size()) * step;
+
     HWND hwnd = CreateWindowEx(WS_EX_DLGMODALFRAME, wc.lpszClassName, title,
         WS_CAPTION | WS_SYSMENU, CW_USEDEFAULT, CW_USEDEFAULT, 300, height,
         owner, nullptr, g_hInst, nullptr);
@@ -553,7 +562,9 @@ void ShowMainMenu() {
 
         g_menuWnd = CreateWindow(wc.lpszClassName, L"EPM Menu",
             WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
+
             CW_USEDEFAULT, CW_USEDEFAULT, 300, 350,
+
             g_mainWnd, nullptr, g_hInst, nullptr);
 
         const wchar_t* labels[8] = {
@@ -573,6 +584,7 @@ void ShowMainMenu() {
         for (int i = 0; i < 8; ++i) {
             CreateWindow(L"BUTTON", labels[i], WS_CHILD | WS_VISIBLE,
                 10, 10 + i * 40, 260, 24, g_menuWnd, (HMENU)ids[i], g_hInst, nullptr);
+
         }
     }
     ShowWindow(g_menuWnd, SW_SHOW);
@@ -685,3 +697,4 @@ int APIENTRY wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR, int) {
     if (g_nid.hIcon) DestroyIcon(g_nid.hIcon);
     return 0;
 }
+
