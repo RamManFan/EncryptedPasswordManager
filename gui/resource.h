@@ -1,6 +1,9 @@
 #pragma once
 #include <windows.h>
 
+
+#define IDI_TRAY        101
+
 #define WMAPP_TRAY      (WM_APP + 1)
 
 #define IDM_TRAY_SHOW   40001
