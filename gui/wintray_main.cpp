@@ -91,7 +91,6 @@ bool ShowPasswordDialog(HWND owner, std::string& outPw) {
     SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY)));
     SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY)));
 
-
     CreateWindow(L"STATIC", L"Master password:", WS_CHILD | WS_VISIBLE,
         10, 10, 230, 20, hwnd, nullptr, g_hInst, nullptr);
     HWND hEdit = CreateWindowEx(0, L"EDIT", L"", WS_CHILD | WS_VISIBLE | ES_PASSWORD | WS_TABSTOP,
@@ -568,15 +567,18 @@ void ShowMainMenu() {
         wc.hInstance = g_hInst;
         wc.lpszClassName = L"EpmMenuClass";
         wc.hbrBackground = (HBRUSH)(COLOR_BTNFACE + 1);
-
         wc.hIcon = LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY));
-
+        RegisterClass(&wc);
 
         g_menuWnd = CreateWindow(wc.lpszClassName, L"EPM Menu",
             WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
-
             CW_USEDEFAULT, CW_USEDEFAULT, 300, 350,
-            g_mainWnd, nullptr, g_hInst, nullptr);
+            nullptr, nullptr, g_hInst, nullptr);
+        if (!g_menuWnd) {
+            MessageBox(g_mainWnd, L"Failed to create menu window", L"Error", MB_OK | MB_ICONERROR);
+            return;
+        }
+
 
         SendMessage(g_menuWnd, WM_SETICON, ICON_BIG, (LPARAM)LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY)));
         SendMessage(g_menuWnd, WM_SETICON, ICON_SMALL, (LPARAM)LoadIcon(g_hInst, MAKEINTRESOURCE(IDI_TRAY)));
@@ -604,6 +606,8 @@ void ShowMainMenu() {
     }
     ShowWindow(g_menuWnd, SW_SHOW);
     UpdateWindow(g_menuWnd);
+    SetForegroundWindow(g_menuWnd);
+
 }
 
 LRESULT CALLBACK MenuWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {

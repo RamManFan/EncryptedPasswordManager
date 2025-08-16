@@ -102,7 +102,7 @@ target_link_libraries(epm_core PUBLIC
 add_executable(epm src/main.cpp)
 target_link_libraries(epm PRIVATE epm_core)
 
-# ---- GUI executable (Unicode + proper Win32 libs)
+
 if (WIN32)
   add_executable(epm_gui WIN32
     gui/wintray_main.cpp
@@ -114,19 +114,8 @@ if (WIN32)
     ${CMAKE_SOURCE_DIR}/gui
   )
 
-  # Force Unicode build and entry point (fixes your wchar_t/LPCSTR errors)
-  target_compile_definitions(epm_gui PRIVATE UNICODE _UNICODE)
-  target_link_options(epm_gui PRIVATE -municode)
+  target_link_libraries(epm_gui PRIVATE epm_core comctl32)
 
-  # Link required Win32 libs (comctl32 already there; add the rest)
-  target_link_libraries(epm_gui PRIVATE
-    epm_core
-    user32
-    gdi32
-    comctl32
-    shell32
-    ole32
-  )
 endif()
 
 # ---- Tests
