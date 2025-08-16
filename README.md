@@ -29,8 +29,9 @@ I’m still learning C++, so this project is my way of getting better and buildi
 <img width="569" height="681" alt="image" src="https://github.com/user-attachments/assets/0a37127b-eb01-4f61-94fa-911110487839" />
 
 
-2. **Create master password**  
-   👉 *Screenshot here: first-time setup flow*  
+2. **Generate Password**  
+<img width="520" height="230" alt="image" src="https://github.com/user-attachments/assets/7679e36f-952f-474d-aed3-400c3bce376c" />
+
 
 3. **Add a credential**  
 <img width="567" height="597" alt="image" src="https://github.com/user-attachments/assets/783633d7-ab72-4f96-88b0-2ea1a5ad8c6a" />
