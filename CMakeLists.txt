@@ -83,9 +83,8 @@ endif()
 add_library(epm_core STATIC
     src/AuthManager.cpp
     src/DatabaseManager.cpp
-    src/EncryptionManager.cpp   
+    src/EncryptionManager.cpp
 )
-
 
 target_include_directories(epm_core PUBLIC
     ${CMAKE_SOURCE_DIR}/include
@@ -99,20 +98,24 @@ target_link_libraries(epm_core PUBLIC
     ${ARGON2_LIBRARY}
 )
 
-# ---- App executable (only main.cpp)
+# ---- CLI executable
 add_executable(epm src/main.cpp)
 target_link_libraries(epm PRIVATE epm_core)
+
 
 if (WIN32)
   add_executable(epm_gui WIN32
     gui/wintray_main.cpp
     gui/resource.rc
   )
+
   target_include_directories(epm_gui PRIVATE
     ${CMAKE_SOURCE_DIR}/include
     ${CMAKE_SOURCE_DIR}/gui
   )
+
   target_link_libraries(epm_gui PRIVATE epm_core comctl32)
+
 endif()
 
 # ---- Tests
@@ -127,19 +130,16 @@ if(NOT Catch2_FOUND)
   FetchContent_MakeAvailable(Catch2)
 endif()
 
-
 add_executable(tests
   tests/placeholder.cpp
   tests/auth_gate.cpp
   tests/db_master.cpp
-  tests/db_kdf.cpp         
+  tests/db_kdf.cpp
   tests/crypto_gcm.cpp
   tests/cred_roundtrip.cpp
 )
-
 
 target_link_libraries(tests PRIVATE
   epm_core
   Catch2::Catch2WithMain
 )
-

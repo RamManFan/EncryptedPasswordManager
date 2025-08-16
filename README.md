@@ -23,7 +23,36 @@ I’m still learning C++, so this project is my way of getting better and buildi
 - **SQLite database** storage  
 
 ---
+## 📸 Demo (Step by Step)
 
+1. **Launch program**  
+<img width="569" height="681" alt="image" src="https://github.com/user-attachments/assets/0a37127b-eb01-4f61-94fa-911110487839" />
+
+
+2. **Create master password**  
+   👉 *Screenshot here: first-time setup flow*  
+
+3. **Add a credential**  
+<img width="567" height="597" alt="image" src="https://github.com/user-attachments/assets/783633d7-ab72-4f96-88b0-2ea1a5ad8c6a" />
+
+
+4. **Search credentials**  
+<img width="571" height="233" alt="image" src="https://github.com/user-attachments/assets/2bbc75e3-07fc-49fe-86a1-46098782df3a" />
+ 
+
+5. **Update credentials**  
+<img width="572" height="596" alt="image" src="https://github.com/user-attachments/assets/9e45d873-6291-4c4f-bd6c-961eeb544ff1" />
+
+
+6. **Delete credentials**  
+<img width="572" height="360" alt="29" src="https://github.com/user-attachments/assets/7ecef940-4e01-4409-b07b-ae06ee36e764" />
+
+
+7. **GUI Tray App** (Windows only)  
+<img width="394" height="252" alt="image" src="https://github.com/user-attachments/assets/946c6217-dce1-44a5-84f2-a865a3ab57e5" />
+
+
+---
 ## 📦 How to Install
 
 ### 1️⃣ Clone the repo
